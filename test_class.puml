@@ -1,0 +1,16 @@
+@startuml
+class Person {
+  -name: String
+  -age: Integer
+  +getName(): String
+  +setName(name: String): void
+}
+
+class Company {
+  -name: String
+  -employees: List
+  +addEmployee(person: Person): void
+}
+
+Person "1..*" -- "1" Company : works for
+@enduml

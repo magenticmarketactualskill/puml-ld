@@ -1,0 +1,10 @@
+@startuml
+participant User
+participant System
+participant Database
+
+User -> System: login(username, password)
+System -> Database: validateCredentials()
+Database --> System: valid
+System --> User: authToken
+@enduml

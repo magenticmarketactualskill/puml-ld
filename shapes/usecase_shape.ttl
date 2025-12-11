@@ -1,0 +1,81 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix uml: <http://example.org/uml#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Use Case Diagram Shape
+uml:UseCaseDiagramShape
+  a sh:NodeShape ;
+  sh:targetClass uml:UseCaseDiagram ;
+  sh:property [
+    sh:path uml:elementCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] ;
+  sh:property [
+    sh:path uml:relationshipCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] .
+
+# Actor Shape
+uml:ActorShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Actor ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "An actor must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:alias ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] .
+
+# Use Case Shape
+uml:UseCaseShape
+  a sh:NodeShape ;
+  sh:targetClass uml:UseCase ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A use case must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:alias ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:description ;
+    sh:datatype xsd:string ;
+  ] .
+
+# Use Case Relationship Shape
+uml:UseCaseRelationshipShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Association, uml:Include, uml:Extend, uml:Generalization ;
+  sh:property [
+    sh:path uml:source ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a source" ;
+  ] ;
+  sh:property [
+    sh:path uml:target ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a target" ;
+  ] ;
+  sh:property [
+    sh:path uml:label ;
+    sh:datatype xsd:string ;
+  ] .

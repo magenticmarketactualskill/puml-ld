@@ -1,0 +1,103 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix uml: <http://example.org/uml#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ERD Diagram Shape
+uml:ERDDiagramShape
+  a sh:NodeShape ;
+  sh:targetClass uml:ERDDiagram ;
+  sh:property [
+    sh:path uml:elementCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] ;
+  sh:property [
+    sh:path uml:relationshipCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] .
+
+# Entity Shape
+uml:EntityShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Entity ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "An entity must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:alias ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:attributes ;
+    sh:node uml:AttributeShape ;
+  ] .
+
+# Attribute Shape (for ERD)
+uml:ERDAttributeShape
+  a sh:NodeShape ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "An attribute must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:datatype ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:primaryKey ;
+    sh:datatype xsd:boolean ;
+  ] ;
+  sh:property [
+    sh:path uml:foreignKey ;
+    sh:datatype xsd:boolean ;
+  ] ;
+  sh:property [
+    sh:path uml:nullable ;
+    sh:datatype xsd:boolean ;
+  ] .
+
+# Relationship Shape (for ERD)
+uml:ERDRelationshipShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Relationship ;
+  sh:property [
+    sh:path uml:source ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a source entity" ;
+  ] ;
+  sh:property [
+    sh:path uml:target ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a target entity" ;
+  ] ;
+  sh:property [
+    sh:path uml:label ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:sourceCardinality ;
+    sh:datatype xsd:string ;
+    sh:in ( "1" "0..1" "1..*" "0..*" "*" ) ;
+    sh:message "Source cardinality must be one of: 1, 0..1, 1..*, 0..*, *" ;
+  ] ;
+  sh:property [
+    sh:path uml:targetCardinality ;
+    sh:datatype xsd:string ;
+    sh:in ( "1" "0..1" "1..*" "0..*" "*" ) ;
+    sh:message "Target cardinality must be one of: 1, 0..1, 1..*, 0..*, *" ;
+  ] .

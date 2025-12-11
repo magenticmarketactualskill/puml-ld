@@ -1,0 +1,157 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix uml: <http://example.org/uml#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Class Diagram Shape
+uml:ClassDiagramShape
+  a sh:NodeShape ;
+  sh:targetClass uml:ClassDiagram ;
+  sh:property [
+    sh:path uml:elementCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] ;
+  sh:property [
+    sh:path uml:relationshipCount ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+  ] .
+
+# Class Shape
+uml:ClassShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Class ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A class must have exactly one name" ;
+  ] ;
+  sh:property [
+    sh:path uml:alias ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:abstract ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:stereotype ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:attributes ;
+    sh:node uml:AttributeShape ;
+  ] ;
+  sh:property [
+    sh:path uml:methods ;
+    sh:node uml:MethodShape ;
+  ] .
+
+# Interface Shape
+uml:InterfaceShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Interface ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path uml:methods ;
+    sh:node uml:MethodShape ;
+  ] .
+
+# Attribute Shape
+uml:AttributeShape
+  a sh:NodeShape ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "An attribute must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:datatype ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:visibility ;
+    sh:in ( "public" "private" "protected" "package" ) ;
+    sh:message "Visibility must be one of: public, private, protected, package" ;
+  ] ;
+  sh:property [
+    sh:path uml:defaultValue ;
+    sh:datatype xsd:string ;
+  ] .
+
+# Method Shape
+uml:MethodShape
+  a sh:NodeShape ;
+  sh:property [
+    sh:path uml:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A method must have a name" ;
+  ] ;
+  sh:property [
+    sh:path uml:parameters ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:returnType ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:visibility ;
+    sh:in ( "public" "private" "protected" "package" ) ;
+  ] ;
+  sh:property [
+    sh:path uml:abstract ;
+    sh:datatype xsd:boolean ;
+  ] ;
+  sh:property [
+    sh:path uml:static ;
+    sh:datatype xsd:boolean ;
+  ] .
+
+# Relationship Shapes
+uml:AssociationShape
+  a sh:NodeShape ;
+  sh:targetClass uml:Association, uml:Extension, uml:Implementation, 
+                 uml:Composition, uml:Aggregation, uml:Dependency ;
+  sh:property [
+    sh:path uml:source ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a source" ;
+  ] ;
+  sh:property [
+    sh:path uml:target ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "A relationship must have a target" ;
+  ] ;
+  sh:property [
+    sh:path uml:label ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:sourceCardinality ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path uml:targetCardinality ;
+    sh:datatype xsd:string ;
+  ] .

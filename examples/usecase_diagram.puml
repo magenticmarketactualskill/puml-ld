@@ -1,0 +1,16 @@
+@startuml
+actor Customer
+actor Admin
+
+usecase "Browse Products" as UC1
+usecase "Add to Cart" as UC2
+usecase "Checkout" as UC3
+usecase "Manage Inventory" as UC4
+
+Customer -- UC1
+Customer -- UC2
+Customer -- UC3
+Admin -- UC4
+
+UC3 ..> UC1 : <<include>>
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+entity Customer {
+  *id : Integer
+  name : String
+  email : String
+}
+
+entity Order {
+  *id : Integer
+  date : Date
+  total : Decimal
+}
+
+entity Product {
+  *id : Integer
+  name : String
+  price : Decimal
+}
+
+Customer ||--o{ Order
+Order }o--|| Product
+@enduml
